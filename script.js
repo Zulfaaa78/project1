@@ -17,17 +17,15 @@ function toggleDropdown() {
 }
 
 window.onload = function() {
-    // Start initial game with default tile size
     startGame(60, 30);
 
     document.getElementById("board").addEventListener("contextmenu", e => e.preventDefault());
 
-    // Difficulty dropdown listeners
+    // Difficulty dropdown
     document.querySelectorAll('#difficultyDropdown a').forEach(option => {
         option.addEventListener('click', function(e) {
             e.preventDefault();
 
-            // Update game globals
             rows = parseInt(this.dataset.rows);
             columns = parseInt(this.dataset.cols);
             minesCount = parseInt(this.dataset.mines);
@@ -43,7 +41,6 @@ window.onload = function() {
             gameOver = false;
             gameStarted = false;
 
-            // Determine tile size and font based on difficulty
             let tileSize, fontSize, headerSize;
             if (this.textContent.includes("Easy")) {
                 tileSize = 60;
@@ -56,12 +53,11 @@ window.onload = function() {
                 fontSize = 20;
             }
 
-            // Build the new board with the correct sizes
             startGame(tileSize, fontSize);
         });
     });
 
-    // Close dropdown if click outside
+    // Close dropdown if clicked outside
     window.addEventListener('click', function(event) {
         if (!event.target.matches('.dropbtn')) {
             var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -84,6 +80,7 @@ window.onload = function() {
 
 function startGame(tileSize, fontSize) {
     document.getElementById("resetBtn").innerText = "🙂";
+
     let boardEl = document.getElementById("board");
     boardEl.style.width = (columns * tileSize) + "px";
     boardEl.style.height = (rows * tileSize) + "px";
@@ -98,8 +95,10 @@ function startGame(tileSize, fontSize) {
             tile.style.width = (tileSize) + "px";
             tile.style.height = (tileSize) + "px";
             tile.style.fontSize = (fontSize) + "px";
+
             tile.addEventListener("click", clickTile);
             tile.addEventListener("contextmenu", rightClickTile);
+
             boardEl.appendChild(tile);
             row.push(tile);
         }
@@ -109,7 +108,6 @@ function startGame(tileSize, fontSize) {
     document.getElementById("mines-count").innerText = minesCount;
 }
 
-// Reset button
 function resetBoard() {
     let boardEl = document.getElementById("board");
     boardEl.innerHTML = "";
@@ -120,7 +118,6 @@ function resetBoard() {
     gameOver = false;
     gameStarted = false;
 
-    // Determine tile size based on current rows/columns
     let tileSize, fontSize;
     if (rows === 8) { tileSize = 60; fontSize = 30; }
     else if (rows === 16) { tileSize = 40; fontSize = 25; }
@@ -128,14 +125,6 @@ function resetBoard() {
 
     startGame(tileSize, fontSize);
 }
-
-function updateDifficulty(rows, cols, mines) {
-    currentRows = rows;
-    currentCols = cols;
-    currentMines = mines;
-    startGame();
-}
-
 
 
 function setMines(safeTile) {
@@ -176,7 +165,6 @@ function setFlag() {
 function clickTile() {
     let tile = this;
 
-    // Flag toggle always works
     if (flagEnabled) {
         toggleFlag(tile);
         return;
@@ -186,7 +174,6 @@ function clickTile() {
         return;
     } 
 
-    // Start the game on first left click
     if (!gameStarted) {
         setMines(tile.id);
         gameStarted = true;
