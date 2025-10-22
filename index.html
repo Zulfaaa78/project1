@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet"  type="text/css" href="css.css" />
+        <script src="script.js"></script>
+        <link rel="icon" type="image/x-icon" href="images/my_logo.png">
+        <title>Minesweeper</title>
+    </head>
+    <body>
+        <div id="header">
+
+            <div class="dropdown" style="display: inline-block; padding: 20px;">
+            <button onclick="toggleDropdown()" class="dropbtn">Difficulty</button>
+            <div id="difficultyDropdown" class="dropdown-content">
+                <a href="#" data-rows="8" data-cols="8" data-mines="10">Easy</a>
+                <a href="#" data-rows="16" data-cols="16" data-mines="40">Medium</a>
+                <a href="#" data-rows="24" data-cols="24" data-mines="99">Hard</a>
+            </div>
+            </div>
+
+            <button id="resetBtn">🙂</button>
+        
+            <h2><span id="mines-count">0</span></h2>
+
+        </div>
+
+        <p></p>
+        
+
+        <div id="board">
+        </div>
+
+        </br><button id="flag">🚩</button>
+    </body>
+</html>
